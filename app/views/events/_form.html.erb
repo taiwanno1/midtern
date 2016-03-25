@@ -1,0 +1,16 @@
+<div class="form-group">
+  <%= f.label :cat_id, "Category" %>
+  <% Cat.all.each do |c| %>
+  <%= f.radio_button :cat_id, c.id %> <%= c.name %>
+  <% end %>
+</div>
+
+<div class="form-group">
+  <%= f.label :topic, "Topic" %>
+  <%= f.text_field :topic, :class => "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :article, "Article" %>
+  <%= f.text_area :article, :class => "form-control" %>
+</div>

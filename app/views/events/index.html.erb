@@ -25,3 +25,9 @@
     <% end %>
   </tbody>
 </table>
+
+<h2>有啥情報？</h2>
+<%= form_for @event do |f| %>
+<%= render :partial => "form", :locals => {:f => f} %>
+<%= f.submit "save", :class => "btn btn-primary" %>
+<% end %>

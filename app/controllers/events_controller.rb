@@ -15,12 +15,23 @@ class EventsController < ApplicationController
   end
 
   def create
+    @event = Event.new(event_params)
+    @event.user = current_user
+
+    if @event.save
+      redirect_to events_path
+    end
   end
 
   def update
+    if @event.update(event_params)
+      redirect_to events_path(:page => params[:page])
+    end
   end
 
   def destroy
+    @event.destroy
+    redirect_to events_path(:page => params[:page])
   end
 
 
@@ -32,7 +43,7 @@ private
   end
 
   def event_params
-    params.require(:event).permit(:topic, :articel, :cat_id)
+    params.require(:event).permit(:topic, :article, :cat_id)
   end
 
 end

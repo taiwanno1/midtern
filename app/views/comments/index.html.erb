@@ -1,0 +1,40 @@
+<h1>Topic: <%= @event.topic %> <small>由阿發露營情報網提供</small></h1>
+
+<div class="article">
+  <p> <%= @event.article %></p>
+</div>
+
+<table class="table">
+<h2>鄉民表示</h2>
+  <thead class="thead">
+    <tr>
+      <th>鄉民</th>
+      <th>說<small>我有30公分....</small></th>
+      <th>發表時間</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @comments.each do |c| %>
+      <tr>
+        <th><%= c.user.try(:short_name) %></th>
+        <th><%= c.comment %></th>
+        <th><%= c.created_at %></th>
+        <th><%= link_to 'Delete', event_comment_path(@event, c), :method => :delete, :class => "btn btn-warning" if c.user == current_user %></th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>講話啊？</h3>
+<%= form_for @comment, :url => event_comments_path( :page => params[:page]) do |f| %>
+
+  <div class="form-group">
+    <%= f.label :comment, "推推" %>
+    <%= f.text_area :comment, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "講啊肏", :class => "btn btn-info" %>
+  </div>
+
+<% end %>
+<%= paginate @comments %>
