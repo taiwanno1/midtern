@@ -20,7 +20,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @event.comments.destroy
+    @comment = @event.comments.find(params[:id])
+    @comment.destroy
     redirect_to event_comments_path
   end
 
