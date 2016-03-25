@@ -1,0 +1,27 @@
+<h1>阿發露營救災情報網</h1>
+
+<table class="table">
+  <thead class="thead">
+    <%= paginate @events %>
+    <tr>
+      <th>Topic</th>
+      <th>User</th>
+      <th>Created time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do|e| %>
+      <tr>
+        <th>
+          <%= link_to e.topic, event_comments_path(e), :class => "btn btn-info" %>
+        </th>
+        <th><%= e.user.try(:short_name) %></th>
+        <th><%= e.created_at %></th>
+        <th><%= link_to 'Edit', events_path(:event_id => e, :page => params[:page]), :class => "btn btn-primary" if e.user == current_user %>
+        </th>
+        <th><%= link_to 'Delete', event_path(e, :event_id => e, :page => params[:page]), :method => :delete, :class => "btn btn-danger" if e.user == current_user %>
+        </th>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
